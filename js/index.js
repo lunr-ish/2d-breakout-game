@@ -16,8 +16,6 @@ let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
 
-let interval = 0;
-
 const brickRowCount = 3;
 const brickColumnCount = 5;
 const brickWidth = 75;
@@ -107,7 +105,6 @@ function draw() {
       if (!lives) {
         alert("GAME OVER");
         document.location.reload();
-        clearInterval(interval);
       } else {
         x = canvas.width / 2;
         y = canvas.height - 30;
@@ -126,6 +123,8 @@ function draw() {
   } else if (leftPressed) {
     paddleX = Math.max(paddleX - 7, 0);
   }
+
+  requestAnimationFrame(draw);
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -173,7 +172,6 @@ function collisionDetection() {
         if (score == brickRowCount * brickColumnCount) {
           alert("YOU WIN, CONGRATULATIONS!");
           document.location.reload();
-          clearInterval(interval);
         }
       }
     }
@@ -193,7 +191,7 @@ function drawLives() {
 }
 
 function startGame() {
-  interval = setInterval(draw, 10);
+  draw();
 }
 
 document.getElementById("runButton").addEventListener("click", function () {
