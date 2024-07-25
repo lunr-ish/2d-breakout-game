@@ -57,9 +57,13 @@ function draw() {
     dy = -dy;
     ballColor = getRandomColor();
   } else if (y + dy > canvas.height - ballRadius) {
-    alert("GAME OVER");
-    document.location.reload();
-    clearInterval(interval);
+    if (x > paddleX && x < paddleX + paddleWidth) {
+      dy = -dy;
+    } else {
+      alert("GAME OVER");
+      document.location.reload();
+      clearInterval(interval);
+    }
   }
 
   x += dx;
