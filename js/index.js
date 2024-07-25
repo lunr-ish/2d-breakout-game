@@ -16,6 +16,8 @@ let paddleX = (canvas.width - paddleWidth) / 2;
 let rightPressed = false;
 let leftPressed = false;
 
+let interval = 0;
+
 function getRandomByte() {
   return Math.floor(Math.random() * 256);
 }
@@ -51,9 +53,13 @@ function draw() {
     ballColor = getRandomColor();
   }
 
-  if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+  if (y + dy < ballRadius) {
     dy = -dy;
     ballColor = getRandomColor();
+  } else if (y + dy > canvas.height - ballRadius) {
+    alert("GAME OVER");
+    document.location.reload();
+    clearInterval(interval);
   }
 
   x += dx;
@@ -86,7 +92,7 @@ function keyUpHandler(e) {
 }
 
 function startGame() {
-  setInterval(draw, 10);
+  interval = setInterval(draw, 10);
 }
 
 document.getElementById("runButton").addEventListener("click", function () {
